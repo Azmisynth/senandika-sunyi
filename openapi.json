@@ -1015,6 +1015,36 @@
         }
       }
     },
+    "/api/me/likes": {
+      "get": {
+        "tags": [
+          "Explore"
+        ],
+        "summary": "Liked Destinations",
+        "operationId": "liked_destinations_api_me_likes_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "title": "Response Liked Destinations Api Me Likes Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/api/me/likes/{slug}": {
       "put": {
         "tags": [
