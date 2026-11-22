@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 from typing import Annotated, Literal
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, StringConstraints
 
 from . import catalog, feedback
@@ -24,6 +25,15 @@ app = FastAPI(
     redoc_url=None,
     openapi_url="/api/openapi.json",
     lifespan=lifespan,
+)
+
+
+# Expo development serves the browser preview on the local machine.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origin_regex=r"^http://(127\.0\.0\.1|localhost)(:[0-9]{1,5})?$",
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 

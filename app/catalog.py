@@ -282,6 +282,19 @@ def remove_favorite(slug: Slug, user=Depends(visitor)):
         db.execute("DELETE FROM favorites WHERE user_id = ? AND destination_id = ?", (user["id"], destination_id))
 
 
+@router.get("/me/likes", response_model=list[str], tags=["Explore"])
+def liked_destinations(user=Depends(visitor)):
+    with connect() as db:
+        rows = db.execute(
+            """SELECT d.slug FROM likes l
+               JOIN destinations d ON d.id = l.destination_id
+               JOIN revisions r ON r.destination_id = d.id AND r.status = 'published'
+               WHERE l.user_id = ? ORDER BY d.slug""",
+            (user["id"],),
+        ).fetchall()
+    return [row["slug"] for row in rows]
+
+
 @router.put("/me/likes/{slug}", status_code=204, tags=["Explore"])
 def add_like(slug: Slug, user=Depends(visitor)):
     with connect(write=True) as db:

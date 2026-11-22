@@ -80,8 +80,9 @@ def submit_rating(
 def own_ratings(user=Depends(visitor), limit: PageSize = 20, offset: Offset = 0):
     with connect() as db:
         rows = db.execute(
-            """SELECT r.id, d.slug, r.score, r.status, r.reviewed_at
+            """SELECT r.id, d.slug, pub.title, r.score, r.status, r.reviewed_at
                FROM ratings r JOIN destinations d ON d.id = r.destination_id
+               LEFT JOIN revisions pub ON pub.destination_id = d.id AND pub.status = 'published'
                WHERE r.user_id = ? ORDER BY r.id DESC LIMIT ? OFFSET ?""",
             (user["id"], limit, offset),
         ).fetchall()
