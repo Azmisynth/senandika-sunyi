@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "Senandika Sunyi",
+    "slug": "senandika-sunyi",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FBF9F4"
+    },
+    "ios": {
+      "bundleIdentifier": "id.senandikasunyi.mobile"
+    },
+    "android": {
+      "package": "id.senandikasunyi.mobile",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#2F493B"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
